@@ -1,10 +1,7 @@
-# 🛎️ Kondate Concierge
+# 🔷 Archilog
 
 <div align="center">
   <img src="docs/images/logo.png" width="200" alt="kondate-concierge logo">
-
-  <p>
-    <strong>AI-powered recipe discovery & menu planning platform.</strong><br>
-    あなた専属の献立コンシェルジュ。
-  </p>
 </div>
+
+論文やテックブログなどの技術情報を収集・解析するフィード件、検索エンジン、レコメンドエンジンを備えた技術情報アーカイブシステム。
