@@ -67,6 +67,16 @@ class RobotGuard:
             logger.debug(f"Failed to load robots.txt: {resp.status_code}")
         self.loaded = True
 
+    def _check_loaded(self) -> None:
+        """robots.txtがロード済みかを確認します。
+
+        Raises:
+            RuntimeError: robots.txtがまだロードされていない場合
+        """
+        if not self.loaded:
+            logger.error("robots.txt not loaded yet.")
+            raise RuntimeError("robots.txt not loaded yet.")
+
     def can_fetch(self, url: str) -> bool:
         """指定されたURLがクロール可能か判定します。
 
@@ -82,9 +92,7 @@ class RobotGuard:
         Raises:
             RuntimeError: robots.txtがまだロードされていない場合
         """
-        if not self.loaded:
-            logger.error("robots.txt not loaded yet.")
-            raise RuntimeError("robots.txt not loaded yet.")
+        self._check_loaded()
         return self.parser.can_fetch(self.user_agent, url)
 
     def get_crawl_delay(self) -> int | None:
@@ -99,9 +107,7 @@ class RobotGuard:
         Raises:
             RuntimeError: robots.txtがまだロードされていない場合
         """
-        if not self.loaded:
-            logger.error("robots.txt not loaded yet.")
-            raise RuntimeError("robots.txt not loaded yet.")
+        self._check_loaded()
         return self.parser.crawl_delay(self.user_agent)  # type: ignore
 
     def get_sitemaps(self) -> list[str]:
@@ -116,7 +122,5 @@ class RobotGuard:
         Raises:
             RuntimeError: robots.txtがまだロードされていない場合
         """
-        if not self.loaded:
-            logger.error("robots.txt not loaded yet.")
-            raise RuntimeError("robots.txt not loaded yet.")
+        self._check_loaded()
         return self.parser.sitemaps  # type: ignore
